@@ -3,7 +3,6 @@ import vk
 import time
 import re
 import os
-import nltk
 
 from porter import Porter
 
