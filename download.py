@@ -2,17 +2,23 @@
 import vk
 import time
 import re
-import json
+import os
+import nltk
+
 from porter import Porter
 
-system(auth.sh)
+#Auth
+os.system('./main.sh')
+f=open('token.key')
+lines=f.readlines()
 
-APP_ID=
-access_token = 
+APP_ID=6375523
+access_token = lines[1].strip()
 session = vk.Session(access_token=access_token)
 vkapi = vk.API(session)
 
-SELF_ID = 
+SELF_ID = int(lines[2].strip())
+TARGET_ID = 249694608
 SLEEP_TIME = 0.3
 
 friends = vkapi('friends.get') # получение всего списка друзей для текущего пользователя
@@ -71,4 +77,4 @@ if __name__ == '__main__':
             print('This is an error message!')
     save_to_file(all_history, 'raw.txt')
     self_messages = get_messages_for_user(all_history, SELF_ID)
-    save_to_file(self_messages, 'sm_corpus.txt') 
+    save_to_file(self_messages, 'sm_corpus.txt')
