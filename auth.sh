@@ -1,7 +1,7 @@
 function auth {
 	APP_ID="6375523"
 	URL="https://oauth.vk.com/authorize?client_id=$APP_ID&display=mobile&redirect_uri=https://oauth.vk.com/blank.html&scope=friends,photos,status,messages,wall,groups&response_type=token&v=$API_V"
-	if [ -x "$(command -v w3m)" ]; then
+	if [ -x "$(command -v w3mm)" ]; then  #TEMPORARY WORKAROUND FOR CAPTCHA!!!!!!!!!!
 		rm ./request.log
 		cp ~/.w3m/request.log ./request.log
 		w3m $URL -reqlog &
@@ -17,9 +17,8 @@ function auth {
 		kill $pid
 		rm diff.txt
 	else
-		echo "w3m not found! Fallback mode is not implemented yet"
+		xdg-open $URL && echo "Copy and paste url here" && read token
 	fi
-	#xdg-open $URL && echo "Copy and paste url here" && read token
 	expires_in=$(url.getvar "$token" expires_in)
 	expr $expires_in + $(date +%s)  > token.key
 	url.getvar "$token" token >> token.key
