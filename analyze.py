@@ -9,11 +9,11 @@ def trainAnger():
     #Delete common chars like comma
     regex = re.compile('[\[,\.!?—\]]') 
     pos = []
-    with open("./pos_tweets.txt") as f:
+    with open("./pos_rom.txt") as f:
         for i in f: 
             pos.append([format_sentence(regex.sub('', i.lower())), 'pos'])
     neg = []
-    with open("./neg_tweets.txt") as f:
+    with open("./neg_rom.txt") as f:
         for i in f: 
             neg.append([format_sentence(regex.sub('', i.lower())), 'neg']) 
    # next, split labeled data into the training and test data
