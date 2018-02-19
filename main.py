@@ -1,9 +1,12 @@
+#!/usr/bin/env python3
+
 from download import *
-from analyze import trainAnger
+from analyze import trainLove
 from analyze import format_sentence
 from porter import Porter
 from operator import itemgetter, attrgetter
 from os import system
+import time
 
 #Download messages
 SLEEP_TIME = 0.3
@@ -11,7 +14,7 @@ all_history = get_history(friends, SLEEP_TIME)
 #Prepare train data
 system("./build_data.sh")
 #Train
-classifier=trainAnger()
+classifier=trainLove()
 #Count everything
 realations = []
 for friend in friends:
@@ -21,7 +24,7 @@ for friend in friends:
         if type(message) == dict:
             #print(message['target'] - friend)
             if ( message['target'] == friend) and (message['uid'] == SELF_ID) :
-                if classifier.classify(format_sentence(message['body'])) == "neg":
+                if classifier.classify(format_sentence(message['body'].lower())) == "neg":
                     neg = neg + 1
                 else:
                     #print(message['body'])

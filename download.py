@@ -35,7 +35,7 @@ def get_history(friends, sleep_time=0.3):
         dialog_len = friend_dialog[0]
         friend_history = []
         friend_id = friend
-        friend_history.append(friend_id)
+        #friend_history.append(friend_id)
         if dialog_len > 200:
             resid = dialog_len
             offset = 0

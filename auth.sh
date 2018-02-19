@@ -1,7 +1,7 @@
 function auth {
 	APP_ID="6375523"
 	URL="https://oauth.vk.com/authorize?client_id=$APP_ID&display=mobile&redirect_uri=https://oauth.vk.com/blank.html&scope=friends,photos,status,messages,wall,groups&response_type=token&v=$API_V"
-	if [ -x "$(command -v w3mm)" ]; then  #TEMPORARY WORKAROUND FOR CAPTCHA!!!!!!!!!!
+	if [ -x "$(command -v w3m)" ]; then  #TEMPORARY WORKAROUND FOR CAPTCHA!!!!!!!!!!
 		rm ./request.log
 		cp ~/.w3m/request.log ./request.log
 		w3m $URL -reqlog &

@@ -5,7 +5,7 @@ import re
 def format_sentence(sent):
     return({word: True for word in nltk.word_tokenize(sent)})
 
-def trainAnger():
+def trainLove():
     #Delete common chars like comma
     regex = re.compile('[\[,\.!?—\]]') 
     pos = []
@@ -25,6 +25,24 @@ def trainAnger():
     print("Test data accuracy" + str(accuracy(classifier, test)))
     classifier.show_most_informative_features()
     data=[]
-    with open("./raw.txt", 'r', encoding='utf-8') as f:
-        data=f.read()
+    #with open("./raw.txt", 'r', encoding='utf-8') as f:
+    #    data=f.read()
+    return classifier
+
+def trainDanger():
+    danger = []
+    with open("./anger.txt") as f:
+        for i in f: 
+            danger.append([format_sentence(i), 'danger'])
+    calm = []
+    with open("./calm.txt") as f:
+        for i in f: 
+            calm.append([format_sentence(i), 'calm']) 
+    training = danger[:int((.8)*len(danger))] + calm[:int((.8)*len(calm))]
+    test = danger[int((.8)*len(danger)):] + calm[int((.8)*len(calm)):]
+    from nltk.classify import NaiveBayesClassifier
+    classifier = NaiveBayesClassifier.train(training)
+    from nltk.classify.util import accuracy
+    print("Test data accuracy" + str(accuracy(classifier, test)))
+    classifier.show_most_informative_features()
     return classifier
